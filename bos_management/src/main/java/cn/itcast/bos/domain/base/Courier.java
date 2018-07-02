@@ -12,6 +12,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.apache.struts2.json.annotations.JSON;
+
 /**
  * @description:快递员
  */
@@ -134,11 +136,14 @@ public class Courier {
 	public void setVehicleNum(String vehicleNum) {
 		this.vehicleNum = vehicleNum;
 	}
-
+	
+	//解决懒加载
+	@JSON(serialize=false)
 	public Set<FixedArea> getFixedAreas() {
 		return fixedAreas;
 	}
-
+	
+	
 	public void setFixedAreas(Set<FixedArea> fixedAreas) {
 		this.fixedAreas = fixedAreas;
 	}

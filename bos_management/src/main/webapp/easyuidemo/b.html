@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>页面布局</title>
+		<script type="text/javascript" src="../js/jquery-1.8.3.js" ></script>
+		<script type="text/javascript" src="../js/easyui/jquery.easyui.min.js" ></script>
+		<script type="text/javascript" src="../js/easyui/locale/easyui-lang-zh_CN.js" ></script>
+		<link rel="stylesheet" href="../js/easyui/themes/default/easyui.css" />
+		<link rel="stylesheet" href="../js/easyui/themes/icon.css" />
+		<script src="../js/ztree/jquery.ztree.all-3.5.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" type="text/css" href="../js/ztree/zTreeStyle.css"/>
+		
+		<script type="text/javascript">
+		// 页面加载后执行
+			$(function(){
+				// 1、 进行ztree菜单设置 
+				var setting = {
+					data: {
+						simpleData: {
+							enable: true // 支持简单json数据格式
+						}
+					},
+					callback: {
+						onClick : function(event, treeId, treeNode, clickFlag){
+							var content = '<div style="width:100%;height:100%;overflow:hidden;">'
+								+ '<iframe src="'
+								+ treeNode.page
+								+ '" scrolling="auto" style="width:100%;height:100%;border:0;" ></iframe></div>';
+							
+							// 没有page树形菜单，不打开选项卡
+							if(treeNode.page != undefined && treeNode.page != ""){
+								// 如果选项卡已经打开，选中 
+								if($("#mytabs").tabs('exists',treeNode.name)){
+									// 选中选项卡
+									$("#mytabs").tabs('select',treeNode.name);
+								}else{
+									// 如果没有打开，添加选项卡 
+									$("#mytabs").tabs('add',{
+										title:treeNode.name,
+										content: content,
+										closable :true
+									});
+								}
+							}
+						}
+					}
+					
+					
+					
+					
+				};
+				
+				// 2、提供ztree树形菜单数据 
+				var zNodes = [
+					{id:1,pId:0,name:"父节点1"},
+					{id:11,pId:1,name:"子节点11"},
+					{id:111,pId:11,name:"子节点111"},
+					{id:112,pId:11,name:"子节点112"},
+					{id:112,pId:11,name:"子节点113"},
+					{id:12,pId:1,name:"子节点12"},
+					{id:2,pId:0,name:"父节点2"},
+					{id:21,pId:2,name:"传智播客",page:"http://www.itcast.cn"},
+					{id:22,pId:2,name:"百度",page:"https://www.baidu.com"}
+				];
+				
+				// 3、生成菜单
+				$.fn.zTree.init($("#baseMenu"), setting, zNodes);
+			});
+	
+			
+			
+		</script>
+		
+		
+		
+	</head>
+	<body>
+		<body class="easyui-layout"> 
+
+		<div data-options="region:'north',title:'传智播客管理系统'"style="height:80px;">
+			<img src="../images/logo.png" />
+		</div> 
+		
+		<div data-options="region:'south',title:'South Title',split:true" style="height:100px;"></div> 
+		
+		<div data-options="region:'east',iconCls:'icon-reload',title:'East',split:true" style="width:100px;"></div> 
+		
+		<div data-options="region:'west',title:'菜单导航',split:true" style="width:100px;">
+			<!--折叠面板-->
+			<div class="easyui-accordion" data-options="fit:true"> 
+
+				<div data-options="title:'基础菜单'">
+					<!-- 通过ztree 插件，制作树菜单 -->
+					<ul id="baseMenu" class="ztree"></ul>
+				</div>
+				<div data-options="title:'系统菜单'">面板二</div>
+
+			</div> 
+
+
+			
+			
+		</div> 
+		
+		<div data-options="region:'center'">
+			<!-- 选项卡面板-->
+			<div id="mytabs" class="easyui-tabs" data-options="fit:true">
+				<div data-options="title:'选项卡面板一',closable:true">hello world</div>				
+				<div data-options="title:'选项卡面板二'">世界,你好!</div>
+			</div>
+		</div>
+
+</body> 
+
+
+		
+		
+		
+	</body>
+</html>

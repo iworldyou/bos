@@ -14,7 +14,31 @@
 		<script type="text/javascript" src="../../js/easyui/ext/jquery.portal.js"></script>
 		<script type="text/javascript" src="../../js/easyui/ext/jquery.cookie.js"></script>
 		<script src="../../js/easyui/locale/easyui-lang-zh_CN.js" type="text/javascript"></script>
+		<script src="../../js/ocupload/jquery.ocupload-1.1.2.js" type="text/javascript"></script>
+		
 		<script type="text/javascript">
+			
+			//导入jquery插件
+				$.fn.serializeJson=function(){  
+            var serializeObj={};  
+            var array=this.serializeArray();  
+            var str=this.serialize();  
+            $(array).each(function(){  
+                if(serializeObj[this.name]){  
+                    if($.isArray(serializeObj[this.name])){  
+                        serializeObj[this.name].push(this.value);  
+                    }else{  
+                        serializeObj[this.name]=[serializeObj[this.name],this.value];  
+                    }  
+                }else{  
+                    serializeObj[this.name]=this.value;   
+                }  
+            });  
+            return serializeObj;  
+        }; 
+			
+			
+			
 			function doAdd(){
 				$('#addWindow').window("open");
 			}
@@ -26,6 +50,17 @@
 			function doDelete(){
 				alert("删除...");
 			}
+			
+			//查询操作
+			function doSearch(){
+				//alert("查询--");
+				//给查询按钮添加一个点击事件,弹出窗口
+				$("#searchWindow").window('open');
+				
+				
+			}
+			
+			
 			
 			//工具栏
 			var toolbar = [ {
@@ -46,7 +81,13 @@
 			}, {
 				id : 'button-import',
 				text : '导入',
-				iconCls : 'icon-redo'
+				iconCls : 'icon-redo',
+			},{
+				id:'button-search',
+				text:'查询',
+				iconCls:'icon-search',
+				handler:doSearch
+				
 			}];
 			// 定义列
 			var columns = [ [ {
@@ -98,7 +139,7 @@
 					pageList: [30,50,100],
 					pagination : true,
 					toolbar : toolbar,
-					url : "../../data/area.json",
+					url : "../../area_pageQuery.action",
 					idField : 'id',
 					columns : columns,
 					onDblClickRow : doDblClickRow
@@ -114,6 +155,55 @@
 			        height: 400,
 			        resizable:false
 			    });
+			    
+			//为导入按钮添加一键上传效果
+			$("#button-import").upload({
+				//请求路径
+				action:'../../area_import.action',
+				
+				//选中文件
+				onSelect:function(){
+					//选中文件,关闭自动提交
+					this.autoSubmit=false;
+					//判断文件是否以.xls或者.xlsx结尾
+					//获得文件名
+					var filename = this.filename();
+					//正则表达式
+					var regex = /^.*\.(xls|xlsx)$/;
+					
+					if (regex.test(filename)) {
+						//满足
+						this.submit();
+						
+					} else{
+						//不满足
+						$.messager.alert("提示信息","上传的文件的格式需为.xls或.xlsx","warning");
+					}
+				},
+				
+				//上传完成效果
+				onComplete:function(){
+					alert("文件上传成功");
+				}
+			})
+			  
+			  
+			  //为查询提交按钮searchBtn绑定一个点击事件
+			  $("#searchBtn").click(function(){
+			  	//用jquery的json插件获得输入的值
+				var parms = $("#searchForm").serializeJson()
+				//将查询的数据绑定到数据表格上
+				$("#grid").datagrid('load',parms);
+				
+				//将查询窗口关闭
+				$("#searchWindow").window('close');
+			  	
+			  })
+			    
+			    
+			    
+			    
+			    
 				
 			});
 		

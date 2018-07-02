@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>页面布局</title>
+		<script type="text/javascript" src="../js/jquery-1.8.3.js" ></script>
+		<script type="text/javascript" src="../js/easyui/jquery.easyui.min.js" ></script>
+		<script type="text/javascript" src="../js/easyui/locale/easyui-lang-zh_CN.js" ></script>
+		<link rel="stylesheet" href="../js/easyui/themes/default/easyui.css" />
+		<link rel="stylesheet" href="../js/easyui/themes/icon.css" />
+		
+		<script type="text/javascript">
+				
+			// 页面加载后执行
+			$(function(){
+				// 对链接绑定点击事件
+				$("#czbo").click(function(){
+					// 添加一个新的选项卡 
+					$("#mytabs").tabs('add',{
+						title:'传智播客',
+						content: '传智播客专注IT培训教育'
+						
+					});
+				});
+			});
+	
+			
+			
+		</script>
+		
+		
+		
+	</head>
+	<body>
+		<body class="easyui-layout"> 
+
+		<div data-options="region:'north'"style="height:80px;">
+			<img src="../images/logo.png" />
+		</div> 
+		
+		<div data-options="region:'south',title:'South Title',split:true" style="height:100px;"></div> 
+		
+		<div data-options="region:'east',iconCls:'icon-reload',title:'East',split:true" style="width:100px;"></div> 
+		
+		<div data-options="region:'west',title:'菜单导航',split:true" style="width:100px;">
+			<!--折叠面板-->
+			<div class="easyui-accordion" style="width:300px;height:300px;"> 
+
+				<div title="Title1" style="overflow:auto;padding:10px;"> 
+				
+				<a href="javascript:void(0)" id="czbo">传智播客</a>
+				
+				</div> 
+				
+				<div title="Title2"  style="padding:10px;"> 
+				
+				content2 
+				
+				</div> 
+				
+				<div title="Title3"> 
+				
+				content3 
+				
+				</div> 
+
+			</div> 
+
+
+			
+			
+		</div> 
+		
+		<div data-options="region:'center'">
+			<!-- 选项卡面板-->
+			<div id="mytabs" class="easyui-tabs" data-options="fit:true">
+				<div data-options="title:'选项卡面板一',closable:true">hello world</div>				
+				<div data-options="title:'选项卡面板二'">世界,你好!</div>
+			</div>
+		</div>
+
+</body> 
+
+
+		
+		
+		
+	</body>
+</html>
