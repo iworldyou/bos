@@ -1,5 +1,7 @@
 package cn.itcast.bos.dao.base;
 
+import java.util.List;
+
 import javax.naming.ldap.ExtendedRequest;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,6 +17,7 @@ public interface CourierRepository extends JpaRepository<Courier, Integer>,JpaSp
 	@Query("update Courier set deltag='1' where id=?")
 	@Modifying
 	public void updateDeltag(Integer id);
+	
 	
 
 		

@@ -82,7 +82,7 @@ public class StandardAction extends ActionSupport implements ModelDriven<Standar
 
 		// 返回客户端数据 需要 total 和 rows
 		Map<String, Object> result = new HashMap<String, Object>();
-		result.put("total", pageData.getNumberOfElements());
+		result.put("total", pageData.getTotalElements());
 		result.put("rows", pageData.getContent());
 
 		// 将map转换为json数据返回 ，使用struts2-json-plugin 插件

@@ -1,5 +1,7 @@
 package cn.itcast.bos.service.base;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -15,5 +17,7 @@ public interface ICourierService {
 	//Page<Courier> findPagedata(Pageable pageRequest);
 
 	public void delBatch(String[] idarray);
+
+	public List<Courier> findnoassociation();
 
 }

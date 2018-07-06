@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.apache.struts2.json.annotations.JSON;
 
@@ -171,4 +172,12 @@ public class Courier {
 	public void setStandard(Standard standard) {
 		this.standard = standard;
 	}
+	
+	@Transient
+	public String getInfo(){
+		return name+"("+company+")";
+		
+	}
+	
+	
 }

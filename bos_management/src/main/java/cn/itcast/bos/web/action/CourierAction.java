@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -14,6 +15,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.ss.formula.functions.T;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
@@ -136,7 +138,7 @@ public class CourierAction extends ActionSupport implements ModelDriven<Courier>
 			//定义一个Map集合
 			Map<String, Object> map = new HashMap<String, Object>();
 			
-			map.put("total", pagedata.getNumberOfElements());
+			map.put("total", pagedata.getTotalElements());
 			map.put("rows", pagedata.getContent());
 			
 			//将数据存入valueStack
@@ -163,9 +165,18 @@ public class CourierAction extends ActionSupport implements ModelDriven<Courier>
 		
 		
 		return SUCCESS;
+	}
+	
+	
+	//查询未关联到定区的快递员
+	@Action(value="courier_findnoassociation",results={@Result(name="success",type="json")})
+	public String findnoassociation(){
+		//System.out.println("aaaaaaaaaaaaaa");
+		List<Courier> list = courierService.findnoassociation();
 		
+		ActionContext.getContext().getValueStack().push(list);
 		
-		
+		return SUCCESS;
 	}
 	
 	

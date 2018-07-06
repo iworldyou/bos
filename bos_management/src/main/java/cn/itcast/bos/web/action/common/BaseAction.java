@@ -25,10 +25,21 @@ public abstract class BaseAction<T>  extends ActionSupport implements ModelDrive
 	public BaseAction() {
 		//构造子类action,获取继承父类的泛型
 		Type genericSuperclass = this.getClass().getGenericSuperclass();
+		
+		
+		//System.out.println(genericSuperclass);//cn.itcast.bos.web.action.common.BaseAction<cn.itcast.bos.domain.base.Area>
+		
+		//获得第一个泛型参数
 		ParameterizedType parameterizedType = (ParameterizedType) genericSuperclass;
+		
+		//System.out.println(parameterizedType);//cn.itcast.bos.web.action.common.BaseAction<cn.itcast.bos.domain.base.Area>
+		
+		//获得泛型类
 		Class<T> modelClass = (Class<T>) parameterizedType.getActualTypeArguments()[0];
+		//System.out.println(modelClass);//class cn.itcast.bos.domain.base.Area
 		
 		try {
+			//获得对象
 			model = modelClass.newInstance();
 		} catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
@@ -54,7 +65,7 @@ public abstract class BaseAction<T>  extends ActionSupport implements ModelDrive
 		//定义一个Map集合
 		Map<String, Object> map = new HashMap<String, Object>();
 		
-		map.put("total", pagedata.getNumberOfElements());
+		map.put("total", pagedata.getTotalElements());
 		map.put("rows", pagedata.getContent());
 		
 		//将数据存入valueStack

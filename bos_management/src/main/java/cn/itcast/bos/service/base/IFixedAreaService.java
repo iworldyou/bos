@@ -12,4 +12,7 @@ public interface IFixedAreaService {
 
 	public Page<FixedArea> findPagedata(Pageable pageRequest,Specification<FixedArea> specification);
 
+
+	public void associationCourierToFixedArea(Integer courierId,Integer taketimeId, String id);
+
 }

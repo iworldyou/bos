@@ -68,7 +68,7 @@ public class AreaAction extends BaseAction<Area>{
 	@Action(value="area_import",results={@Result(name="success",type="redirect",location="./pages/base/area.html")})
 	public String areaImport() throws IOException{
 		//编码对上传文件进行解析
-		//.xml文件
+		//.xsl文件
 		//加载文集对象
 		HSSFWorkbook hssfWorkbook = new HSSFWorkbook(new FileInputStream(file));
 		//解析文件的一个工作sheet
@@ -189,7 +189,10 @@ public class AreaAction extends BaseAction<Area>{
 		}
 	
 	
-	
+	public static void main(String[] args) {
+		AreaAction action = new AreaAction();
+		
+	}
 	
 	
 	
