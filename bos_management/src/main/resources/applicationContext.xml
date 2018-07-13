@@ -52,7 +52,7 @@
 			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaDialect" />
 		</property>
 		
-		<!-- 
+		<!-- 优化的相关配置
 		<property name="jpaPropertyMap">
 			<map>
 				<entry key="hibernate.query.substitutions" value="true 1, false 0" />
@@ -79,9 +79,9 @@
 	
 		
 	<!-- 整合spring data jpa -->
-	<jpa:repositories base-package="cn.itcast.bos.dao" />
+	<jpa:repositories base-package="cn.itcast.bos" />
 	
-	
+	<import resource="applicationContext_webservice.xml"/>
 	
 	
 </beans>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>AngularJS基于模块化的MVC复杂操作</title>
+		<script src="../js/angular.min.js"></script>
+		
+	</head>
+	<body>
+		<!--ng-app="myapp",定义一个模块-->
+		<div ng-app="myapp" ng-controller="mycontroller">
+			
+				
+			<!--ng-model模型作用-->
+			<div>
+				<input type="text" name="name"  ng-model="name" />
+				<input type="button" ng-click="clearVal()" value="清空"/>
+			</div>
+			
+			<div>
+				hello,{{name}}
+				
+			</div>
+		
+		</div>	
+		
+		<script type="text/javascript">
+			//初始化myapp模块
+			var myapp=angular.module("myapp",[]);
+			
+			//定义模块的控制器
+			myapp.controller("mycontroller",["$scope",
+				function($scope){
+					//对模型初始化赋值
+					$scope.name="黑马程序员";
+					
+					//在作用域,提供点击事件
+					$scope.clearVal=function(){
+						//模型设值为空
+						$scope.name="";
+					}
+				}
+			])
+			
+			
+		</script>		
+	</body>
+</html>

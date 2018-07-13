@@ -14,15 +14,6 @@
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 	
-	<!-- OpenEntityManagerInView -->
-<!-- 	<filter> -->
-<!-- 		<filter-name>OpenEntityManagerInView</filter-name> -->
-<!-- 		<filter-class>org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter</filter-class> -->
-<!-- 	</filter> -->
-<!-- 	<filter-mapping> -->
-<!-- 		<filter-name>OpenEntityManagerInView</filter-name> -->
-<!-- 		<url-pattern>/*</url-pattern> -->
-<!-- 	</filter-mapping> -->
 	
 	<!-- struts核心控制器 -->
 	<filter>

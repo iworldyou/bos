@@ -53,6 +53,28 @@ public class CustomerServiceImpl implements ICustomerService {
 		
 		
 	}
+	
+	//用户注册保存
+	@Override
+	public void saveCustomer(Customer customer) {
+		customerRepository.save(customer);
+	}
+	
+	//根据的手机号查客户
+	
+	@Override
+	public Customer findByTelphone(String telephone) {
+		
+		return customerRepository.findByTelphone(telephone);
+	}
+	
+	//邮箱激活,修改邮箱状态
+	
+	@Override
+	public void updataType(String telephone) {
+		customerRepository.updateType(telephone);
+		
+	}
 
 
 }

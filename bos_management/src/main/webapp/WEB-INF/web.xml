@@ -23,6 +23,18 @@
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 	
+	<!-- CXF发布 -->
+	<servlet>
+		<servlet-name>CXFService</servlet-name>
+		<servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CXFService</servlet-name>
+		<url-pattern>/services/*</url-pattern>
+	</servlet-mapping>
+	
+	
 	<!-- struts2 -->
 	<filter>
 		<filter-name>struts2</filter-name>
@@ -31,7 +43,8 @@
 
 	<filter-mapping>
 		<filter-name>struts2</filter-name>
-		<url-pattern>/*</url-pattern>
+		<!-- 不去拦截webService的发布 -->
+		<url-pattern>*.action</url-pattern>
 	</filter-mapping>
 	
 	

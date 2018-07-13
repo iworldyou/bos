@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>AngularJS集合数据列表的显示</title>
+		<script src="../js/angular.min.js"></script>
+		
+	</head>
+	<body>
+		<!--ng-app="myapp",定义一个模块-->
+		<div ng-app="myapp" ng-controller="mycontroller">
+			<table>
+				<tr>
+					<th>编号</th>
+					<th>商品名称</th>
+					<th>商品价格</th>
+					<th>商品数量</th>					
+				</tr>				
+				
+				<tr ng-repeat="product in products">
+					<td>{{$index+1}}</td>
+					<td>{{product.name}}</td>
+					<td>{{product.price}}</td>
+					<td>{{product.count}}</td>
+				</tr>
+			</table>
+			
+		</div>	
+		
+		<script type="text/javascript">
+			//初始化myapp模块
+			var myapp=angular.module("myapp",[]);
+			
+			//定义模块的控制器
+			// 依赖注入 ，$scope作用域对象，操作当前作用域视图 
+			myapp.controller("mycontroller",["$scope",
+				function($scope){
+					//对模型初始化赋值
+					$scope.products=[
+					{
+						name:"电视机",
+						price:2000,
+						count:20
+					},
+					{
+						name:"洗衣机",
+						price:1600,
+						count:10
+						
+					}
+					
+					];
+					
+				}
+			])
+			
+			
+		</script>		
+	</body>
+</html>

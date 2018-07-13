@@ -2,7 +2,9 @@ package cn.itcast.crm.service.base;
 
 import java.util.List;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -35,6 +37,27 @@ public interface ICustomerService {
 	public void associationCustomerToFixedArea(
 			@QueryParam("customerIdStr") String customerIdStr,
 			@QueryParam("fixedAreaId") String fixedAreaId);//修改参数
+	
+	
+	//用户注册保存
+	@Path("/save")
+	@POST
+	@Consumes({ "application/xml", "application/json"})
+	public void saveCustomer(Customer customer);
+	
+	//根据手机号查询客户
+	@Path("/findByTelphone/{telephone}")
+	@GET
+	@Produces({ "application/xml", "application/json" })
+	public Customer findByTelphone(
+			@PathParam("telephone") String telephone);
+	
+	
+	//根据手机号修改激活状态
+	@Path("/updatatype/{telephone}")
+	@GET
+	@Consumes({"application/xml", "application/json"})
+	public void updataType(@PathParam("telephone") String telephone);
 	
 
 }
