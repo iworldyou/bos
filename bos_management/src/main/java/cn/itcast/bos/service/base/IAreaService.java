@@ -14,4 +14,7 @@ public interface IAreaService {
 
 	public Page<Area> findPagedata(Pageable pageRequest,Specification<Area> specification);
 
+	public Area findAreaByProvinceAndCityAndDistrict(String province,
+			String city, String district);
+
 }

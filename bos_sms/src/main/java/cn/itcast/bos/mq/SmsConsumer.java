@@ -16,13 +16,13 @@ public class SmsConsumer implements MessageListener{
 		
 		try {
 			// 给用户发送短信
-			// String result = SmsUtils.sendSmsByHTTP(model.getTelephone(),msg);
+			// String result = SmsUtils.sendSmsByHTTP(mapMessage.getString("telephone"),mapMessage.getString("msg"));
 			
 			String result = "000xxx";
 			
 			if (result.startsWith("000")) {
 				//短信发送成功
-				System.out.println("发送短信成功,手机号为:"+mapMessage.getString("telephone")+"信息为:"+mapMessage.getString("msg"));
+			System.out.println("发送短信成功,手机号为:"+mapMessage.getString("telephone")+"信息为:"+mapMessage.getString("msg"));
 				
 			}else{
 				throw new RuntimeException("短信发送失败:信息码为:"+result);

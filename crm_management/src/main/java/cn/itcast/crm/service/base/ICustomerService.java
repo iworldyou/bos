@@ -59,5 +59,21 @@ public interface ICustomerService {
 	@Consumes({"application/xml", "application/json"})
 	public void updataType(@PathParam("telephone") String telephone);
 	
+	//用户登陆
+	@GET
+	@Path("/customer")
+	@Produces({ "application/xml", "application/json" })
+	public Customer find(
+			@QueryParam("telephone") String telephone,
+			@QueryParam("password") String password);
+	
+	
+	//根据客户address查询定区
+	@GET
+	@Path("/findFixedAreaIdByAddress")
+	@Produces({ "application/xml", "application/json" })
+	public String findFixedAreaIdByAddress(
+			@QueryParam("address") String sendAddress);
+	
 
 }

@@ -8,6 +8,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,6 +28,7 @@ public class CourierServiceImpl implements ICourierService {
 	private CourierRepository courierRepository;
 
 	@Override
+	@RequiresPermissions("courier_add")//通过注解给添加快递员加入权限
 	public void save(Courier c) {
 		courierRepository.save(c);
 	}

@@ -17,7 +17,7 @@
 
 	
 	<!-- 将web service服务发布的配置 -->
-	<jaxrs:server id="/promotionService" address="/promotionService">
+	<jaxrs:server id="promotionService" address="/promotionService">
 		<!-- 实现类 -->
 		<jaxrs:serviceBeans>
 			<bean class="cn.itcast.bos.service.base.impl.PromotionServiceImpl"></bean>
@@ -31,6 +31,21 @@
 		</jaxrs:outInterceptors>
 		
 	</jaxrs:server>
+	
+	<jaxrs:server id="orderService" address="/orderService">
+		<!-- 实现类 -->
+		<jaxrs:serviceBeans>
+			<bean class="cn.itcast.bos.service.base.impl.OrderServiceImpl"></bean>
+		</jaxrs:serviceBeans>
+		
+		<jaxrs:inInterceptors>
+			<bean class="org.apache.cxf.interceptor.LoggingInInterceptor" />
+		</jaxrs:inInterceptors>
+		<jaxrs:outInterceptors>
+			<bean class="org.apache.cxf.interceptor.LoggingOutInterceptor" />
+		</jaxrs:outInterceptors>
+	</jaxrs:server>
+	
 	
 	
 	

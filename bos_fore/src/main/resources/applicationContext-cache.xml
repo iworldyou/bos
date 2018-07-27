@@ -40,7 +40,7 @@
 		<!-- jedis连接工厂 -->
 	<bean id="connectionFactory"  
         class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"  
-        p:host-name="192.168.187.136" p:port="6379" p:pool-config-ref="poolConfig"  
+        p:host-name="192.168.60.0" p:port="6379" p:pool-config-ref="poolConfig"  
         p:database="0" />  
        
       <!--spring data 提供redis模板  --> 

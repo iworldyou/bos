@@ -180,5 +180,26 @@ public class CustomerAction extends BaseAction<Customer> {
 		return NONE;
 
 	}
+	
+	//用户登陆操作
+	@Action(value="customer_login",results={@Result(name="success",type="redirect",location="index.html#/myhome")})
+	public String login(){
+		
+		ServletActionContext.getResponse().setContentType("text/html;charset=utf-8");
+		//根据手机号和密码查询用户
+		Customer customer = WebClient.create("http://localhost:9090/crm_management/services/customerService/customer?telephone="+model.getTelephone()+"&password="+model.getPassword())
+		.accept(MediaType.APPLICATION_JSON).get(Customer.class);
+		
+		if (customer==null) {
+			//登陆失败
+			return INPUT;
+		}
+		
+		//登陆成功,将用户信息存在session中
+		ServletActionContext.getRequest().getSession().setAttribute("customer",customer);
+		
+		return SUCCESS;
+	}
+	
 
 }

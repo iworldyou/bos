@@ -38,8 +38,6 @@
         <!-- Session缓存数量 -->
         <property name="sessionCacheSize" value="100" />
     </bean>
-    
-    
     <!-- 定义监听器 -->
      <jms:listener-container destination-type="queue" container-type="default" 
     	connection-factory="mqConnectionFactory" acknowledge="auto">

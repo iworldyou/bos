@@ -1,8 +1,9 @@
 package cn.itcast.bos.service.base.impl;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,7 @@ public class StandServiceImpl implements IStandardService {
 	
 	
 	@Override
+	@CacheEvict(value="standard",allEntries=true)//清除缓存区,用于增加,删除,修改
 	public void save(Standard s) {
 		standardRepository.save(s);
 	}
@@ -35,6 +37,7 @@ public class StandServiceImpl implements IStandardService {
 
 
 	@Override
+	@Cacheable("standard")//cacheable应用缓存区,用于查询方法
 	public List<Standard> findAll() {
 		return standardRepository.findAll();
 	}

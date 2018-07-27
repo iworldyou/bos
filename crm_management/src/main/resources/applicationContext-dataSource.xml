@@ -12,6 +12,12 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
 		http://www.springframework.org/schema/data/jpa 
 		http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
+		
+		
+	
+	<!-- 加载properties文件 -->
+	<context:property-placeholder location="classpath:db.properties" />
+	
 	
 	<!-- 连接池配置 -->
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">

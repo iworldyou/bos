@@ -33,6 +33,13 @@ public interface CustomerRepository extends JpaRepository<Customer,Integer>{
 	@Modifying
 	public void updateType(String telephone);
 
+	public Customer findByTelephoneAndPassword(String telephone, String password);
+
+	
+	//根据寄件地址--对应客户地址,查询定区fixedAreaId
+	@Query("select fixedAreaId from Customer where address = ?")
+	public String findFixedAreaIdByAddress(String sendAddress);
+
 	
 	
 

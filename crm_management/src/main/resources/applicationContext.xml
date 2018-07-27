@@ -18,27 +18,12 @@
 	<!-- 扫描 @Server @Controller @Repository -->
 	<context:component-scan base-package="cn.itcast"/>
 
-	<!-- 加载properties文件 -->
-	<context:property-placeholder location="classpath:db.properties" />
-	
 	<!-- 引入 数据库连接配置文件  -->
 	<import resource="applicationContext-dataSource.xml"/>
 	
-	<!-- 将web service服务发布的配置 -->
-	<jaxrs:server id="customerService" address="/customerService">
-		<!-- 实现类 -->
-		<jaxrs:serviceBeans>
-			<bean class="cn.itcast.crm.service.base.impl.CustomerServiceImpl"></bean>
-		</jaxrs:serviceBeans>
-		
-		<jaxrs:inInterceptors>
-			<bean class="org.apache.cxf.interceptor.LoggingInInterceptor" />
-		</jaxrs:inInterceptors>
-		<jaxrs:outInterceptors>
-			<bean class="org.apache.cxf.interceptor.LoggingOutInterceptor" />
-		</jaxrs:outInterceptors>
-		
-	</jaxrs:server>
+	<import resource="applicationContext_webservice.xml"/>
+	
+	
 	
 	
 	

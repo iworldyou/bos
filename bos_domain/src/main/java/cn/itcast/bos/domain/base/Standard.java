@@ -1,5 +1,6 @@
 package cn.itcast.bos.domain.base;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -12,10 +13,12 @@ import javax.persistence.TemporalType;
 
 /**
  * @description:收派标准
+ *使用ehcache缓存普通的业务数据,先对实体类进行序列化
+ * 
  */
 @Entity
 @Table(name = "T_STANDARD")
-public class Standard {
+public class Standard implements Serializable{
 	@Id
 	@GeneratedValue
 	@Column(name = "C_ID")

@@ -15,12 +15,100 @@
 		<script type="text/javascript" src="../../js/easyui/ext/jquery.portal.js"></script>
 		<script type="text/javascript" src="../../js/easyui/ext/jquery.cookie.js"></script>
 		<script src="../../js/easyui/locale/easyui-lang-zh_CN.js" type="text/javascript"></script>
+			
 		<script type="text/javascript">
+				//导入jquery插件
+				$.fn.serializeJson=function(){  
+            var serializeObj={};  
+            var array=this.serializeArray();  
+            var str=this.serialize();  
+            $(array).each(function(){  
+                if(serializeObj[this.name]){  
+                    if($.isArray(serializeObj[this.name])){  
+                        serializeObj[this.name].push(this.value);  
+                    }else{  
+                        serializeObj[this.name]=[serializeObj[this.name],this.value];  
+                    }  
+                }else{  
+                    serializeObj[this.name]=this.value;   
+                }  
+            });  
+            return serializeObj;  
+        }; 
+			
+			
+			
+			
 			function doSearch() {
-				$('#tt').datagrid('load', {
-					
-				});
+				var queryParams = $("#waybillSearch").serializeJson();
+				$('#tt').datagrid('load',queryParams);
 			}
+			
+			//页面加载完成
+			$(function(){
+				$("#transitBtn").click(function(){
+						var rows = $("#tt").datagrid('getSelections');
+						if(rows.length==0){
+							$.messager.alert("警告","请选中运单","warning");	
+						}else{
+							var array = new Array();
+							
+							for (var i=0;i<rows.length;i++) {
+								//获得id
+								array.push(rows[i].id);
+							}
+								//运单id拼接成字符串
+							var wayBillIds = array.join(",");
+							
+							//向服务端发送请求
+							$.post("../../transitinfo_create.action",{"wayBillIds":wayBillIds},function(data){
+								if (data.success) {
+									//运单配送成功
+									$.messager.show({
+										title:'操作成功',
+										msg:data.msg
+										
+									});
+								}else{
+									$.messager.show({
+										title:'操作失败',
+										msg:data.msg
+									});
+								}
+								
+							})
+							
+							
+													
+						}
+						
+						
+				})
+				
+				//导出excel表格
+				$("#exportXlsBtn").click(function(){
+					$("#waybillSearch").attr("action","../../export_excel.action");
+					$("#waybillSearch").submit();
+					
+					
+				})
+				
+				
+				//导出excel表格
+				$("#exportPdfBtn").click(function(){
+					$("#waybillSearch").attr("action","../../export_pdf.action");
+					$("#waybillSearch").submit();
+					
+					
+				})
+				
+				
+				
+				
+			})
+			
+			
+			
 		</script>
 	</head>
 
@@ -28,18 +116,20 @@
 		<div id="tb">
 			<a id="save" icon="icon-edit" href="#" class="easyui-linkbutton" plain="true">修改</a>
 			<a id="cut" icon="icon-cut" href="#" class="easyui-linkbutton" plain="true">作废</a>
+			<a id="transitBtn" icon="icon-edit" href="#" class="easyui-linkbutton" plain="true">中转配送</a>
 			<a id="help" icon="icon-help" href="#" class="easyui-linkbutton" plain="true">任务提示</a>
 			<a id="help" icon="icon-print" href="#" class="easyui-linkbutton" plain="true">打印查询结果</a>
 			<a id="help" icon="icon-cancel" href="#" class="easyui-linkbutton" plain="true">取消</a>
 			<a id="help" icon="icon-save" href="#" class="easyui-linkbutton" plain="true">保存</a>
 			<a id="help" icon="icon-print" href="#" class="easyui-linkbutton" plain="true">打印标签</a>
-			<a id="help" icon="icon-print" href="#" class="easyui-linkbutton" plain="true">打印工作单</a>
+			<a id="exportXlsBtn" icon="icon-print" href="#" class="easyui-linkbutton" plain="true">导出Excell报表</a>
+			<a id="exportPdfBtn" icon="icon-print" href="#" class="easyui-linkbutton" plain="true">导出PDF报表</a>
 			
 			<br />
+				<form id="waybillSearch">
 				运单号：<input name="wayBillNum" style="line-height:26px;border:1px solid #ccc">
 				发货地：<input name="sendAddress" style="line-height:26px;border:1px solid #ccc" >
 				收货地：<input name="recAddress" style="line-height:26px;border:1px solid #ccc" >
-				
 				<select class="easyui-combobox" style="width:150px" name="sendProNum">
 					<option value="">请选择快递产品类型</option>
 					<option value="速运当日">速运当日</option>
@@ -55,10 +145,11 @@
 					<option value="4">异常</option>
 				</select>
 				
-				<a href="javascript:void" class="easyui-linkbutton" 
+				<a href="javascript:void(0)" class="easyui-linkbutton" 
 					plain="true" onclick="doSearch()">查询</a> 
+				</form>
 		</div>
-		<table id="tt" class="easyui-datagrid" fit="true" toolbar="#tb" rownumbers="true" pagination="true">
+		<table id="tt" url="../../waybill_pageQuery.action" class="easyui-datagrid" fit="true" toolbar="#tb" rownumbers="true" pagination="true">
 			<thead>
 				<tr>
 					<th field="ck" checkbox="true"></th>

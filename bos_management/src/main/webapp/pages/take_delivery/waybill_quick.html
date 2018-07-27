@@ -65,7 +65,7 @@
 			}];
 			// 定义列
 			var columns = [ [ {
-				field : 'id',
+				field : 'wayBillNum',
 				title : '工作单号',
 				width : 120,
 				align : 'center',
@@ -76,7 +76,7 @@
 					}
 				}
 			}, {
-				field : 'arrivecity',
+				field : 'arriveCity',
 				title : '到达地',
 				width : 120,
 				align : 'center',
@@ -87,7 +87,7 @@
 					}
 				}
 			},{
-				field : 'product',
+				field : 'goodsType',
 				title : '产品',
 				width : 120,
 				align : 'center',
@@ -146,13 +146,29 @@
 					pageList: [30,50,100],
 					pagination : true,
 					toolbar : toolbar,
-					url :  "",
+					url :  "../../waybill_pageQuery.action",
 					idField : 'id',
 					columns : columns,
 					onDblClickRow : doDblClickRow,
 					onAfterEdit : function(rowIndex, rowData, changes){
+						//发送请求
+						$.post("../../waybill_save.action",rowData,function(data){
+							if (data.success) {
+								$.messager.show({
+									title:"提示窗口",
+									msg:data.msg
+								})
+							}
+						location.href="/bos_management/pages/take_delivery/waybill_quick.html";	
+							
+						})
+						
 						console.info(rowData);
 						editIndex = undefined;
+						
+						
+				
+						
 					}
 				});
 			});

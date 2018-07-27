@@ -76,5 +76,17 @@ public class CustomerServiceImpl implements ICustomerService {
 		
 	}
 
+	@Override
+	public Customer find(String telephone, String password) {
+		
+		return customerRepository.findByTelephoneAndPassword(telephone,password);
+	}
+
+	@Override
+	public String findFixedAreaIdByAddress(String sendAddress) {
+		
+		return customerRepository.findFixedAreaIdByAddress(sendAddress);
+	}
+
 
 }
